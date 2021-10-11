@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,7 +8,7 @@
     <title>Blog</title>
 </head>
 
-<body>
+<body> --}}
     {{-- using @yield layout --}}
     {{-- @extends('layout')
     @section('content')
@@ -41,6 +41,6 @@
         </article>
         {{-- </x-slot> --}}
     </x-layout>
-</body>
+{{-- </body>
 
-</html>
+</html> --}}

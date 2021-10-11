@@ -8,10 +8,9 @@
             <x-icon name="down-arrow" class=" absolute pointer-events-none " style="right: 12px;" />
         </button>
     </x-slot>
-    <x-dropdown-item href="/" :active="request()->routeIs('home')">All</x-dropdown-item>
+    <x-dropdown-item href="/?{{ http_build_query(request()->except('category', 'page')) }}" :active="request()->routeIs('home')">All</x-dropdown-item>
     @foreach ($categories as $category)
-        {{-- ->id ? 'bg-blue-700 text-white' : '' }} --}}
-        <x-dropdown-item href="/?categories={{ $category->slug }} " {{-- :active="isset($currentCategory) && $currentCategory->is($category)" or --}}
+        <x-dropdown-item href="/?categories={{ $category->slug }}& {{ http_build_query(request()->except('category', 'page')) }} " 
             :active='request()->is("categories/.{$category->slug}")'>
             {{ ucwords($category->name) }} </x-dropdown-item>
     @endforeach
