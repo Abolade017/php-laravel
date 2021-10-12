@@ -25,8 +25,9 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
-Route::get('posts/{post:slug}',[PostController::class, 'show']);
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
 Route::get('reg', [RegisterController::class, 'create']);
+Route::post('reg', [RegisterController::class, 'store']);
 Route::get('authors/{author:username}', function (User $author) {
     return view('posts.index', [
 

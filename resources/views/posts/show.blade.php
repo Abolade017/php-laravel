@@ -9,8 +9,8 @@
 </head>
 
 <body> --}}
-    {{-- using @yield layout --}}
-    {{-- @extends('layout')
+{{-- using @yield layout --}}
+{{-- @extends('layout')
     @section('content')
         <article>
             <?php
@@ -19,28 +19,28 @@
         </article>
         <a href="/">Go Back</a>
     @endsection --}}
-    {{-- using x-layout content layout --}}
-    <x-layout>
-        {{-- <x-slot name="content"> --}}
-        <article>
-            <h1 class="text-xl text-blue-800">
-                {!! $post->title !!}
-            </h1>
-            <p class="text-blue-900 py-4">
-                By <a href="/?authors={{ $post->author->username }}"> {{ $post->author->name }}</a> in <a
-                    href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
-            </p>
-            <div class="space-y-4 lg:text-lg leading-loose">
-                {!! $post->body !!}
-                {{-- <?php echo $post->body; ?> --}}
+{{-- using x-layout content layout --}}
+<x-layout>
+    {{-- <x-slot name="content"> --}}
+    <article>
+        <h1 class="text-xl text-blue-800">
+            {!! $post->title !!}
+        </h1>
+        <p class="text-blue-900 py-4">
+            By <a href="/?authors={{ $post->author->username }}"> {{ $post->author->name }}</a> in <a
+                href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
+        </p>
+        <div class="space-y-4 lg:text-lg leading-loose">
+            {!! $post->body !!}
+            {{-- <?php echo $post->body; ?> --}}
 
-            </div>
-            <p class="py-4 text-blue-900">
-                <a href="/">Go back</a>
-            </p>
-        </article>
-        {{-- </x-slot> --}}
-    </x-layout>
+        </div>
+        <p class="py-4 text-blue-900">
+            <a href="/">Go back</a>
+        </p>
+    </article>
+    {{-- </x-slot> --}}
+</x-layout>
 {{-- </body>
 
 </html> --}}
