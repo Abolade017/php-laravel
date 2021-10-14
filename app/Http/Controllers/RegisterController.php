@@ -19,12 +19,13 @@ class RegisterController extends Controller
       return request()->all(); or */
     $attributes = request()->validate([
       'name' => 'required|max:255',
-      'username' => 'required|min:3|max:255|unique:users,username ',
-      'email' => 'required|email|max:255|unique: users,email',
+      'username' => 'required|min:3|max:255|unique:users,username',
+      'email' => 'required|email|max:255|unique:users,email',
       'password' => 'required|min:7|max:255'
     ]);
-     User::create($attributes);
+     $user=User::create($attributes);
     //log the user in
+    auth()->login($user);
     return redirect('/')->with('success!, your account has been created');
   }
 }

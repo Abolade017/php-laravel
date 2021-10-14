@@ -1,5 +1,5 @@
 <x-layout>
-    <section class="px-6 py-8 mx-auto max-w-2xl">
+    <section class="px-6 py-8 mx-auto max-w-2xl"> 
         <main class="bg-gray-100 p-6 border-gray-200 rounded-xl mt-10">
             <h1 class="text-center text-xl font-bold">Register</h1>
             <form action="/reg" method="post" class="mt-10">
