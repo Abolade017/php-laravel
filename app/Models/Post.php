@@ -44,7 +44,10 @@ class Post extends Model
         //         ->where('categories.slug', $category)
         // ));
     }
-
+    public function comment()
+    {
+        return $this->hasMany(comment::class);
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);

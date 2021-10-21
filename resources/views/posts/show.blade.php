@@ -35,6 +35,7 @@
             {{-- <?php echo $post->body; ?> --}}
 
         </div>
+        <x-post-comment></x-post-comment>
         <p class="py-4 text-blue-900">
             <a href="/">Go back</a>
         </p>
