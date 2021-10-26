@@ -36,16 +36,19 @@
 
         </div>
         <section class="col-span-8 col-start-5 mt-10 space-y-4">
-            @foreach ($post->comments as $comment)
-                <x-post-comment :comment=$comment />
-            @endforeach
-        </section>
+@include('posts._add-comment-form')
 
-        <p class="py-4 text-blue-900">
-            <a href="/">Go back</a>
-        </p>
-    </article>
-    {{-- </x-slot> --}}
+    @foreach ($post->comments as $comment)
+        <x-post-comment :comment=$comment />
+
+    @endforeach
+    </section>
+
+<p class="py-4 text-blue-900">
+    <a href="/">Go back</a>
+</p>
+</article>
+{{-- </x-slot> --}}
 </x-layout>
 {{-- </body>
 

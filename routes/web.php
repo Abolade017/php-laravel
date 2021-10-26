@@ -24,9 +24,24 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('ping', function () {
 
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us5'
+    ]);
+
+    $response = $mailchimp->lists->addListMember('8a6157adcd', [
+        "email_address" => "tawaade@gmail.com",
+        "status" => "subscribed"
+    ]);
+    ddd($response);
+});
+Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
+Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 Route::get('reg', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('reg', [RegisterController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
