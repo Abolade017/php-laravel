@@ -36,7 +36,6 @@ Route::post('reg', [RegisterController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
 Route::get('log-in', [SessionController::class, 'create'])->middleware('guest');
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
-
 Route::get('authors/{author:username}', function (User $author) {
     return view('posts.index', [
 
@@ -44,7 +43,7 @@ Route::get('authors/{author:username}', function (User $author) {
 
     ]);
 });
-
+Route::get('admin/posts/create',[PostController::class, 'create'])->middleware('admin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
