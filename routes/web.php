@@ -1,16 +1,19 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\services\Newsletter;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Stmt\TryCatch;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
@@ -24,23 +27,9 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('ping', function () {
-
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us5'
-    ]);
-
-    $response = $mailchimp->lists->addListMember('8a6157adcd', [
-        "email_address" => "tawaade@gmail.com",
-        "status" => "subscribed"
-    ]);
-    ddd($response);
-});
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
+Route::post('newsletter', NewsletterController::class);
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 Route::get('reg', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('reg', [RegisterController::class, 'store'])->middleware('guest');
