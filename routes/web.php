@@ -44,7 +44,8 @@ Route::get('authors/{author:username}', function (User $author) {
     ]);
 });
 Route::get('admin/posts/create',[PostController::class, 'create'])->middleware('admin');
-
+// Route::post('admin/posts',[PostController::class, 'store'])->middleware('admin');
+Route::post('admin/posts',[PostController::class, 'store'])->middleware('admin');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

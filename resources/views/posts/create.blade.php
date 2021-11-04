@@ -1,5 +1,25 @@
  <x-layout>
-     <section class="px-6 py-8">
-        hello
-     </section>
+     <x-setting heading="Publish New Post">
+
+         <form action="/admin/posts" method="post" enctype="multipart/form-data">
+             @csrf
+             <x-form.input name='title' />
+             <x-form.input name='slug' />
+             <x-form.input name='thumbnail' type='file' />
+             <x-form.textarea name='excerpt' />
+             <x-form.field>
+                 <x-form.label name='Category' />
+                 <select name="category_id" id="category_id">
+                     @foreach (\App\Models\Category::all() as $category)
+                         <option class="" value="{{ $category->id }}"
+                             {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                             {{ ucwords($category->name) }}</option>
+                     @endforeach
+                 </select>
+             </x-form.field>
+
+             <x-form.textarea name='body' />
+             <x-form.button>Publish</x-form.button>
+         </form>
+     </x-setting>
  </x-layout>
