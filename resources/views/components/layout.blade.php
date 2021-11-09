@@ -22,17 +22,24 @@
                 @auth
                     <x-dropdown>
                         <x-slot name="trigger">
-                             <button class="text-xs font-bold uppercase">Welcome,{{ auth()->user()->name }}!</button>
+                            <button class="text-xs font-bold uppercase">Welcome,{{ auth()->user()->name }}!</button>
                         </x-slot>
-                        <x-dropdown-item href="/admin/dashboard">Dashboard</x-dropdown-item>
-                        <x-dropdown-item href="/admin/posts/create"  :active="request()->is('/admin/posts/create')">New Post</x-dropdown-item>
-                        <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
-                        <form action="/logout" method="post" id="logout-form" class=" hidden font-xs font-semiblod text-blue-500 ">
+                        @if (auth()->user()->can('admin'))
+                            <x-dropdown-item href="/admin/posts" :active="request()->is('/admin/posts')">Dashboard
+                            </x-dropdown-item>
+                            <x-dropdown-item href="/admin/posts/create" :active="request()->is('/admin/posts/create')">New
+                                Post
+                            </x-dropdown-item>
+                        @endif
+                        <x-dropdown-item href="#" x-data="{}"
+                            @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+                        <form action="/logout" method="post" id="logout-form"
+                            class=" hidden font-xs font-semiblod text-blue-500 ">
                             @csrf
                             <button type="submit">Log Out</button>
                         </form>
                     </x-dropdown>
-                    
+
                 @else
                     <a href="/reg" class="text-xs font-bold uppercase">Register</a>
                     <a href="/log-in" class="text-xs font-bold uppercase">Login</a>

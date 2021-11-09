@@ -4,11 +4,14 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\AdminPostController;
+
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use App\services\Newsletter;
 use Illuminate\Log\Logger;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -28,14 +31,19 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', [PostController::class, 'index'])->name('home');
+
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
-Route::post('newsletter', NewsletterController::class);
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
+
+Route::post('newsletter', NewsletterController::class);
+
 Route::get('reg', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('reg', [RegisterController::class, 'store'])->middleware('guest');
-Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
 Route::get('log-in', [SessionController::class, 'create'])->middleware('guest');
-Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
+Route::post('log-in', [SessionController::class, 'store'])->middleware('guest');
+Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
 Route::get('authors/{author:username}', function (User $author) {
     return view('posts.index', [
 
@@ -43,9 +51,14 @@ Route::get('authors/{author:username}', function (User $author) {
 
     ]);
 });
-Route::get('admin/posts/create',[PostController::class, 'create'])->middleware('admin');
-// Route::post('admin/posts',[PostController::class, 'store'])->middleware('admin');
-Route::post('admin/posts',[PostController::class, 'store'])->middleware('admin');
+
+Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin');
+Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
+Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin');
+Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit'])->middleware('admin')->name('post.edit');
+Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update'])->middleware('admin')->name('post.update');
+Route::delete('admin/posts/{post:id}', [AdminPostController::class, 'destroy'])->middleware('admin');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
